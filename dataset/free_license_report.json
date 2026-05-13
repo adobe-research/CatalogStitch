@@ -1,0 +1,1059 @@
+{
+  "summary": {
+    "total_with_url": 106,
+    "indicates_free": 106,
+    "not_free": 0,
+    "fetch_errors": 0,
+    "skipped_pexels": 0,
+    "skipped_unsplash": 0,
+    "no_url": 10
+  },
+  "not_free_links": [],
+  "fetch_error_links": [],
+  "all_results": [
+    {
+      "category": "stitch",
+      "id": 1,
+      "asset": "background",
+      "filename": "bg_pexels-artbovich-8135269.jpg",
+      "url": "https://www.pexels.com/photo/a-blue-sofa-with-cushions-8135269/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 1,
+      "asset": "product",
+      "filename": "obj_trung1142-sofa-7347875.jpg",
+      "url": "https://pixabay.com/illustrations/sofa-couch-furniture-isolated-7347875/",
+      "free": true,
+      "reason": "OK"
+    },
+    {
+      "category": "stitch",
+      "id": 2,
+      "asset": "background",
+      "filename": "bg_pexels-artbovich-8135269.jpg",
+      "url": "https://www.pexels.com/photo/a-blue-sofa-with-cushions-8135269/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 2,
+      "asset": "product",
+      "filename": "obj_pexels-kseniachernaya-11112731.jpg",
+      "url": "https://www.pexels.com/photo/a-sofa-near-a-white-wall-11112731/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 3,
+      "asset": "background",
+      "filename": "bg_pexels-karola-g2-5560.jpg",
+      "url": "https://www.pexels.com/photo/wedding-shoes-5560/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 3,
+      "asset": "product",
+      "filename": "obj_pexels-camilo-martinez-326724028-13793387.jpg",
+      "url": "https://www.pexels.com/photo/photograph-of-a-white-sneaker-on-the-grass-13793387/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 4,
+      "asset": "background",
+      "filename": "bg_pexels-krista-glizdeniece-2150567376-33203963.jpg",
+      "url": "https://www.pexels.com/photo/abandoned-shoe-on-latvian-beach-sand-33203963/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 4,
+      "asset": "product",
+      "filename": "obj_pexels-1242304473-30229963.jpg",
+      "url": "https://www.pexels.com/photo/stylish-leather-boot-on-white-box-30229963/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 5,
+      "asset": "background",
+      "filename": "bg_pexels-sneepcrew-8188890.jpg",
+      "url": "https://www.pexels.com/photo/close-up-shot-of-white-shoes-on-the-rock-8188890/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 5,
+      "asset": "product",
+      "filename": "obj_pexels-1242304473-30229963.jpg",
+      "url": "https://www.pexels.com/photo/stylish-leather-boot-on-white-box-30229963/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 6,
+      "asset": "background",
+      "filename": "bg_pexels-sneepcrew-8373049.jpg",
+      "url": "https://www.pexels.com/photo/close-up-shot-of-a-gray-sneaker-8373049/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 6,
+      "asset": "product",
+      "filename": "obj_pexels-1242304473-30229963.jpg",
+      "url": "https://www.pexels.com/photo/stylish-leather-boot-on-white-box-30229963/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 7,
+      "asset": "background",
+      "filename": "bg_pexels-sneepcrew-8373049.jpg",
+      "url": "https://www.pexels.com/photo/close-up-shot-of-a-gray-sneaker-8373049/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 7,
+      "asset": "product",
+      "filename": "obj_pexels-camilo-martinez-326724028-13793387.jpg",
+      "url": "https://www.pexels.com/photo/photograph-of-a-white-sneaker-on-the-grass-13793387/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 8,
+      "asset": "background",
+      "filename": "bg_pexels-homesickalien-30876299.jpg",
+      "url": "https://www.pexels.com/photo/vintage-motorcycle-helmet-in-sunlight-30876299/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 8,
+      "asset": "product",
+      "filename": "obj_pexels-labskiii-14090898.jpg",
+      "url": "https://www.pexels.com/photo/helmet-for-auto-racing-14090898/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 9,
+      "asset": "background",
+      "filename": "bg_pexels-imperioame-18213326.jpg",
+      "url": "https://www.pexels.com/photo/person-wearing-black-leather-boots-stepping-on-a-biker-helmet-18213326/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 9,
+      "asset": "product",
+      "filename": "obj_pexels-pratik-brahmbhatt-1479980869-28051516.jpg",
+      "url": "https://www.pexels.com/photo/helmet-28051516/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 10,
+      "asset": "background",
+      "filename": "bg_pexels-matreding-33995284.jpg",
+      "url": "https://www.pexels.com/photo/vintage-racing-helmet-with-marlboro-branding-33995284/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 10,
+      "asset": "product",
+      "filename": "obj_pexels-pratik-brahmbhatt-1479980869-28051516.jpg",
+      "url": "https://www.pexels.com/photo/helmet-28051516/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 11,
+      "asset": "background",
+      "filename": "bg_pexels-mohit-hambiria-92377455-17855875.jpg",
+      "url": "https://www.pexels.com/photo/lamborghini-aventador-17855875/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 11,
+      "asset": "product",
+      "filename": "obj_pexels-pratik-brahmbhatt-1479980869-28051516.jpg",
+      "url": "https://www.pexels.com/photo/helmet-28051516/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 12,
+      "asset": "background",
+      "filename": "bg_pexels-oguzhan-oncu-349382156-19203922.jpg",
+      "url": "https://www.pexels.com/photo/motorcycle-helmet-on-the-concrete-19203922/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 12,
+      "asset": "product",
+      "filename": "obj_pexels-pratik-brahmbhatt-1479980869-28051516.jpg",
+      "url": "https://www.pexels.com/photo/helmet-28051516/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 13,
+      "asset": "background",
+      "filename": "bg_pexels-pravinkumar-ganesan-275577427-13023676.jpg",
+      "url": "https://www.pexels.com/photo/close-up-shot-of-a-motorcycle-helmet-on-the-beach-13023676/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 13,
+      "asset": "product",
+      "filename": "obj_pexels-labskiii-14090898.jpg",
+      "url": "https://www.pexels.com/photo/helmet-for-auto-racing-14090898/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 14,
+      "asset": "background",
+      "filename": "bg_pexels-pravinkumar-ganesan-275577427-13023676.jpg",
+      "url": "https://www.pexels.com/photo/close-up-shot-of-a-motorcycle-helmet-on-the-beach-13023676/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 14,
+      "asset": "product",
+      "filename": "obj_pexels-pratik-brahmbhatt-1479980869-28051516.jpg",
+      "url": "https://www.pexels.com/photo/helmet-28051516/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 15,
+      "asset": "background",
+      "filename": "bg_pexels-pravinkumar-ganesan-275577427-13023676.jpg",
+      "url": "https://www.pexels.com/photo/close-up-shot-of-a-motorcycle-helmet-on-the-beach-13023676/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 15,
+      "asset": "product",
+      "filename": "obj_pexels-wolfart-10392247.jpg",
+      "url": "https://www.pexels.com/photo/motorcycle-helmet-with-minion-design-10392247/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 16,
+      "asset": "background",
+      "filename": "bg_pexels-sanjeev-136933423-10272524.jpg",
+      "url": "https://www.pexels.com/photo/white-helmet-on-the-ground-10272524/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 16,
+      "asset": "product",
+      "filename": "obj_pexels-imtiaj-uddin-rayhan-1187618493-26831796.jpg",
+      "url": "https://www.pexels.com/photo/a-helmet-with-a-reflective-visor-standing-on-the-ground-26831796/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 17,
+      "asset": "background",
+      "filename": "bg_pexels-sanjeev-136933423-10272524.jpg",
+      "url": "https://www.pexels.com/photo/white-helmet-on-the-ground-10272524/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 17,
+      "asset": "product",
+      "filename": "obj_pexels-pratik-brahmbhatt-1479980869-28051516.jpg",
+      "url": "https://www.pexels.com/photo/helmet-28051516/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 18,
+      "asset": "background",
+      "filename": "bg_pexels-travelerchitect-16774940.jpg",
+      "url": "https://www.pexels.com/photo/motorcycle-helmet-with-bird-behind-16774940/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 18,
+      "asset": "product",
+      "filename": "obj_pexels-pratik-brahmbhatt-1479980869-28051516.jpg",
+      "url": "https://www.pexels.com/photo/helmet-28051516/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 19,
+      "asset": "background",
+      "filename": "bg_pexels-pixabay-158053.jpg",
+      "url": "https://www.pexels.com/photo/selective-focus-photography-of-pure-orange-juice-158053/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 19,
+      "asset": "product",
+      "filename": "obj_pexels-ryutaro-6249466.jpg",
+      "url": "https://www.pexels.com/photo/glass-of-refreshing-drink-with-ice-on-table-6249466/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 20,
+      "asset": "background",
+      "filename": "bg_pexels-wolfart-20130416.jpg",
+      "url": "https://www.pexels.com/photo/pouring-juice-to-glass-20130416/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 20,
+      "asset": "product",
+      "filename": "obj_pexels-8pcarlos-morocho-2150734957-35800294.jpg",
+      "url": "https://www.pexels.com/photo/refreshing-glass-of-orange-juice-on-dark-background-35800294/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 21,
+      "asset": "background",
+      "filename": "bg_pexels-derya-nur-2018604754-33891813.jpg",
+      "url": "https://www.pexels.com/photo/cozy-indoor-scene-with-potted-kalanchoe-plant-33891813/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 21,
+      "asset": "product",
+      "filename": "obj_pexels-didsss-1302305.jpg",
+      "url": "https://www.pexels.com/photo/cactus-in-brown-vase-1302305/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 22,
+      "asset": "background",
+      "filename": "bg_pexels-freestocks-284010.jpg",
+      "url": "https://www.pexels.com/photo/white-ceramic-cup-near-laptop-284010/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 22,
+      "asset": "product",
+      "filename": "obj_pexels-andy-lee-222330306-34657262.jpg",
+      "url": "https://www.pexels.com/photo/elegant-anthurium-in-artistic-yellow-vase-34657262/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 23,
+      "asset": "background",
+      "filename": "bg_pexels-freestocks-284010.jpg",
+      "url": "https://www.pexels.com/photo/white-ceramic-cup-near-laptop-284010/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 23,
+      "asset": "product",
+      "filename": "obj_pexels-didsss-1302305.jpg",
+      "url": "https://www.pexels.com/photo/cactus-in-brown-vase-1302305/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 24,
+      "asset": "background",
+      "filename": "bg_pexels-freestocks-284010.jpg",
+      "url": "https://www.pexels.com/photo/white-ceramic-cup-near-laptop-284010/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 24,
+      "asset": "product",
+      "filename": "obj_pexels-nguy-n-ti-n-th-nh-2150376175-33791097.jpg",
+      "url": "https://www.pexels.com/photo/vibrant-gerbera-daisy-in-modern-vase-on-wooden-table-33791097/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 25,
+      "asset": "background",
+      "filename": "bg_pexels-paolobici-33010574.jpg",
+      "url": "https://www.pexels.com/photo/rustic-table-with-potted-flowers-in-tirana-33010574/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 25,
+      "asset": "product",
+      "filename": "obj_pexels-andy-lee-222330306-34657262.jpg",
+      "url": "https://www.pexels.com/photo/elegant-anthurium-in-artistic-yellow-vase-34657262/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 26,
+      "asset": "background",
+      "filename": "bg_pexels-105648863-10380840.jpg",
+      "url": "https://www.pexels.com/photo/an-alarm-clock-on-a-wooden-table-10380840/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 26,
+      "asset": "product",
+      "filename": "obj_pexels-jessica-monte-67886-239831.jpg",
+      "url": "https://www.pexels.com/photo/white-table-clock-displaying-12-30-239831/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 27,
+      "asset": "background",
+      "filename": "bg_pexels-105648863-10380840.jpg",
+      "url": "https://www.pexels.com/photo/an-alarm-clock-on-a-wooden-table-10380840/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 27,
+      "asset": "product",
+      "filename": "obj_pexels-kindelmedia-7054763.jpg",
+      "url": "https://www.pexels.com/photo/a-clock-with-white-hands-on-pink-background-7054763/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 28,
+      "asset": "background",
+      "filename": "bg_pexels-eniko-toth-473630-32831579.jpg",
+      "url": "https://www.pexels.com/photo/blue-alarm-clock-with-pilea-plant-on-white-table-32831579/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 28,
+      "asset": "product",
+      "filename": "obj_pexels-jessica-monte-67886-239831.jpg",
+      "url": "https://www.pexels.com/photo/white-table-clock-displaying-12-30-239831/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 29,
+      "asset": "background",
+      "filename": "bg_pexels-eniko-toth-473630-32831579.jpg",
+      "url": "https://www.pexels.com/photo/blue-alarm-clock-with-pilea-plant-on-white-table-32831579/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 29,
+      "asset": "product",
+      "filename": "obj_pexels-kindelmedia-7054763.jpg",
+      "url": "https://www.pexels.com/photo/a-clock-with-white-hands-on-pink-background-7054763/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 30,
+      "asset": "background",
+      "filename": "bg_pexels-monoar-rahman-22660-100733.jpg",
+      "url": "https://www.pexels.com/photo/selective-focus-photography-gray-analog-clock-on-black-surface-100733/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 30,
+      "asset": "product",
+      "filename": "obj_pexels-koolshooters-7346144.jpg",
+      "url": "https://www.pexels.com/photo/pink-alarm-clock-7346144/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 31,
+      "asset": "background",
+      "filename": "bg_pexels-monoar-rahman-22660-100733.jpg",
+      "url": "https://www.pexels.com/photo/selective-focus-photography-gray-analog-clock-on-black-surface-100733/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 31,
+      "asset": "product",
+      "filename": "obj_pexels-pixabay-161870.jpg",
+      "url": "https://www.pexels.com/photo/brown-framed-alarm-clock-on-brown-table-161870/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 32,
+      "asset": "background",
+      "filename": "bg_pexels-tara-winstead-7123604.jpg",
+      "url": "https://www.pexels.com/photo/gray-analog-clock-on-a-wooden-table-7123604/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 32,
+      "asset": "product",
+      "filename": "obj_pexels-jessica-monte-67886-239831.jpg",
+      "url": "https://www.pexels.com/photo/white-table-clock-displaying-12-30-239831/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 33,
+      "asset": "background",
+      "filename": "bg_pexels-tara-winstead-7123604.jpg",
+      "url": "https://www.pexels.com/photo/gray-analog-clock-on-a-wooden-table-7123604/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 33,
+      "asset": "product",
+      "filename": "obj_pexels-pixabay-161870.jpg",
+      "url": "https://www.pexels.com/photo/brown-framed-alarm-clock-on-brown-table-161870/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 34,
+      "asset": "background",
+      "filename": "bg_pexels-tkirkgoz-11377759.jpg",
+      "url": "https://www.pexels.com/photo/an-analog-clock-between-potted-plants-on-a-wooden-surface-11377759/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 34,
+      "asset": "product",
+      "filename": "obj_pexels-koolshooters-7346144.jpg",
+      "url": "https://www.pexels.com/photo/pink-alarm-clock-7346144/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 35,
+      "asset": "background",
+      "filename": "bg_pexels-tkirkgoz-11377759.jpg",
+      "url": "https://www.pexels.com/photo/an-analog-clock-between-potted-plants-on-a-wooden-surface-11377759/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "stitch",
+      "id": 35,
+      "asset": "product",
+      "filename": "obj_pexels-pixabay-161870.jpg",
+      "url": "https://www.pexels.com/photo/brown-framed-alarm-clock-on-brown-table-161870/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "occlusion",
+      "id": 1,
+      "asset": "background",
+      "filename": "bg_pexels-artbovich-8082560.jpg",
+      "url": "https://www.pexels.com/photo/blue-sofa-chair-beside-white-lampshade-8082560/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "occlusion",
+      "id": 1,
+      "asset": "product",
+      "filename": "obj_pexels-sammsara-luxury-modern-home-372468-1103745.jpg",
+      "url": "https://www.pexels.com/photo/gray-metal-table-lamp-with-white-cone-lampshade-1103745/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "occlusion",
+      "id": 2,
+      "asset": "background",
+      "filename": "bg_pexels-arooba-iqbal-436486747-34791363.jpg",
+      "url": "https://www.pexels.com/photo/elegant-teal-chair-in-cozy-living-room-setting-34791363/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "occlusion",
+      "id": 2,
+      "asset": "product",
+      "filename": "obj_pexels-markusspiske-105004.jpg",
+      "url": "https://www.pexels.com/photo/house-table-luxury-lamp-105004/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "occlusion",
+      "id": 3,
+      "asset": "background",
+      "filename": "bg_pexels-visneligunce-22726130.jpg",
+      "url": "https://www.pexels.com/photo/a-cup-of-coffee-standing-on-a-small-table-with-a-potted-plant-22726130/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "occlusion",
+      "id": 3,
+      "asset": "product",
+      "filename": "obj_pexels-karola-g-6757651.jpg",
+      "url": "https://www.pexels.com/photo/vase-with-bouquet-6757651/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "occlusion",
+      "id": 4,
+      "asset": "background",
+      "filename": "bg_pexels-fadime-demirtas-42037863-13087806.jpg",
+      "url": "https://www.pexels.com/photo/a-green-plant-on-a-ceramic-pot-near-the-cup-of-coffee-on-the-table-13087806/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "occlusion",
+      "id": 4,
+      "asset": "product",
+      "filename": "obj_pexels-karola-g-6757651.jpg",
+      "url": "https://www.pexels.com/photo/vase-with-bouquet-6757651/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "occlusion",
+      "id": 5,
+      "asset": "background",
+      "filename": "bg_skyler-smith-Y7UWQDVuSrE-unsplash.jpg",
+      "url": "https://unsplash.com/photos/a-living-room-with-a-couch-and-a-coffee-table-Y7UWQDVuSrE",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "occlusion",
+      "id": 5,
+      "asset": "product",
+      "filename": "obj_personalgraphic-com-4Co4l84sJWg-unsplash.jpg",
+      "url": "https://unsplash.com/photos/a-brown-leather-couch-sitting-on-top-of-a-white-floor-4Co4l84sJWg",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "occlusion",
+      "id": 6,
+      "asset": "background",
+      "filename": "bg_purspective-sofa-8754140.jpg",
+      "url": "https://pixabay.com/illustrations/sofa-space-studio-art-perspective-8754140/",
+      "free": true,
+      "reason": "OK"
+    },
+    {
+      "category": "occlusion",
+      "id": 6,
+      "asset": "product",
+      "filename": "obj_trung1142-sofa-7347875.jpg",
+      "url": "https://pixabay.com/illustrations/sofa-couch-furniture-isolated-7347875/",
+      "free": true,
+      "reason": "OK"
+    },
+    {
+      "category": "occlusion",
+      "id": 7,
+      "asset": "background",
+      "filename": "bg_pexels-rdne-8581013.jpg",
+      "url": "https://www.pexels.com/photo/white-sofa-beside-white-wall-8581013/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "occlusion",
+      "id": 7,
+      "asset": "product",
+      "filename": "obj_personalgraphic-com-4Co4l84sJWg-unsplash.jpg",
+      "url": "https://unsplash.com/photos/a-brown-leather-couch-sitting-on-top-of-a-white-floor-4Co4l84sJWg",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "occlusion",
+      "id": 8,
+      "asset": "background",
+      "filename": "bg_prydumano-design-yOx4oPNUR10-unsplash.jpg",
+      "url": "https://unsplash.com/photos/a-living-room-with-a-couch-and-a-table-yOx4oPNUR10",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "occlusion",
+      "id": 8,
+      "asset": "product",
+      "filename": "obj_trung1142-sofa-7347875.jpg",
+      "url": "https://pixabay.com/illustrations/sofa-couch-furniture-isolated-7347875/",
+      "free": true,
+      "reason": "OK"
+    },
+    {
+      "category": "occlusion",
+      "id": 9,
+      "asset": "background",
+      "filename": "bg_pexels-21435498-6585253.jpg",
+      "url": "https://www.pexels.com/photo/orange-juice-in-clear-drinking-glass-6585253/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "occlusion",
+      "id": 9,
+      "asset": "product",
+      "filename": "obj_pexels-ryutaro-6249466.jpg",
+      "url": "https://www.pexels.com/photo/glass-of-refreshing-drink-with-ice-on-table-6249466/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "occlusion",
+      "id": 10,
+      "asset": "background",
+      "filename": "bg_pexels-jdgromov-5668199.jpg",
+      "url": "https://www.pexels.com/photo/stirring-of-orange-and-beetroot-drink-on-a-clear-glass-5668199/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "occlusion",
+      "id": 10,
+      "asset": "product",
+      "filename": "obj_pexels-8pcarlos-morocho-2150734957-35800294.jpg",
+      "url": "https://www.pexels.com/photo/refreshing-glass-of-orange-juice-on-dark-background-35800294/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "occlusion",
+      "id": 11,
+      "asset": "background",
+      "filename": "bg_pexels-beautinow-niche-perfume-413075804-15007553.jpg",
+      "url": "https://www.pexels.com/photo/bottle-of-perfume-in-front-of-a-mirror-15007553/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "occlusion",
+      "id": 11,
+      "asset": "product",
+      "filename": "obj_pexels-didsss-1653085.jpg",
+      "url": "https://www.pexels.com/photo/close-up-photo-of-perfume-bottle-1653085/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "occlusion",
+      "id": 12,
+      "asset": "background",
+      "filename": "bg_pexels-cottonbro-7609139.jpg",
+      "url": "https://www.pexels.com/photo/vintage-telephone-beside-the-bed-7609139/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "occlusion",
+      "id": 12,
+      "asset": "product",
+      "filename": "obj_pexels-artempodrez-4612402.jpg",
+      "url": "https://www.pexels.com/photo/a-white-lamp-on-the-table-4612402/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "occlusion",
+      "id": 13,
+      "asset": "background",
+      "filename": "bg_pexels-rachel-claire-5490386.jpg",
+      "url": "https://www.pexels.com/photo/lamp-on-a-wooden-table-5490386/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "occlusion",
+      "id": 13,
+      "asset": "product",
+      "filename": "obj_pexels-artempodrez-4612402.jpg",
+      "url": "https://www.pexels.com/photo/a-white-lamp-on-the-table-4612402/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "occlusion",
+      "id": 14,
+      "asset": "background",
+      "filename": "bg_pexels-cottonbro-6943418.jpg",
+      "url": "https://www.pexels.com/photo/a-lamp-shade-and-a-clock-on-the-bedside-table-6943418/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "occlusion",
+      "id": 14,
+      "asset": "product",
+      "filename": "obj_pexels-446120723-15524191.jpg",
+      "url": "https://www.pexels.com/photo/lamp-in-the-corner-15524191/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "occlusion",
+      "id": 15,
+      "asset": "background",
+      "filename": "bg_pexels-rachel-claire-4577650.jpg",
+      "url": "https://www.pexels.com/photo/books-and-lamp-on-bedside-table-in-hotel-room-4577650/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "occlusion",
+      "id": 15,
+      "asset": "product",
+      "filename": "obj_pexels-wdtoro-26635057.jpg",
+      "url": "https://www.pexels.com/photo/front-view-of-a-golden-coated-antique-desk-lamp-placed-on-the-table-urban-interior-concept-26635057/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "occlusion",
+      "id": 16,
+      "asset": "background",
+      "filename": "bg_pexels-marko-stojkovic-1187731-17264328.jpg",
+      "url": "https://www.pexels.com/photo/3d-render-of-a-modern-living-room-17264328/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "occlusion",
+      "id": 16,
+      "asset": "product",
+      "filename": "obj_trung1142-sofa-7347875.jpg",
+      "url": "https://pixabay.com/illustrations/sofa-couch-furniture-isolated-7347875/",
+      "free": true,
+      "reason": "OK"
+    },
+    {
+      "category": "occlusion",
+      "id": 17,
+      "asset": "background",
+      "filename": "bg_pexels-chaitaastic-1918291.jpg",
+      "url": "https://www.pexels.com/photo/green-2-seat-sofa-1918291/",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "occlusion",
+      "id": 17,
+      "asset": "product",
+      "filename": "obj_personalgraphic-com-4Co4l84sJWg-unsplash.jpg",
+      "url": "https://unsplash.com/photos/a-brown-leather-couch-sitting-on-top-of-a-white-floor-4Co4l84sJWg",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "occlusion",
+      "id": 18,
+      "asset": "background",
+      "filename": "bg_dan-lefebvre-ghUf8UzTK8g-unsplash.jpg",
+      "url": "https://unsplash.com/photos/a-living-room-with-two-couches-and-a-coffee-table-ghUf8UzTK8g",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "occlusion",
+      "id": 18,
+      "asset": "product",
+      "filename": "obj_personalgraphic-com-4Co4l84sJWg-unsplash.jpg",
+      "url": "https://unsplash.com/photos/a-brown-leather-couch-sitting-on-top-of-a-white-floor-4Co4l84sJWg",
+      "free": true,
+      "reason": "OK (verified via extension)"
+    },
+    {
+      "category": "occlusion",
+      "id": 19,
+      "asset": "background",
+      "filename": "generated-bg-1.jpg",
+      "url": null,
+      "free": null,
+      "reason": "Generated (no URL)"
+    },
+    {
+      "category": "occlusion",
+      "id": 19,
+      "asset": "product",
+      "filename": "generated-prd-1.jpg",
+      "url": null,
+      "free": null,
+      "reason": "Generated (no URL)"
+    },
+    {
+      "category": "occlusion",
+      "id": 20,
+      "asset": "background",
+      "filename": "generated-bg-2.jpg",
+      "url": null,
+      "free": null,
+      "reason": "Generated (no URL)"
+    },
+    {
+      "category": "occlusion",
+      "id": 20,
+      "asset": "product",
+      "filename": "generated-prd-2.jpg",
+      "url": null,
+      "free": null,
+      "reason": "Generated (no URL)"
+    },
+    {
+      "category": "occlusion",
+      "id": 21,
+      "asset": "background",
+      "filename": "generated-bg-3.jpg",
+      "url": null,
+      "free": null,
+      "reason": "Generated (no URL)"
+    },
+    {
+      "category": "occlusion",
+      "id": 21,
+      "asset": "product",
+      "filename": "generated-prd-3.jpg",
+      "url": null,
+      "free": null,
+      "reason": "Generated (no URL)"
+    },
+    {
+      "category": "occlusion",
+      "id": 22,
+      "asset": "background",
+      "filename": "generated-bg-4.jpg",
+      "url": null,
+      "free": null,
+      "reason": "Generated (no URL)"
+    },
+    {
+      "category": "occlusion",
+      "id": 22,
+      "asset": "product",
+      "filename": "generated-prd-4.jpg",
+      "url": null,
+      "free": null,
+      "reason": "Generated (no URL)"
+    },
+    {
+      "category": "occlusion",
+      "id": 23,
+      "asset": "background",
+      "filename": "generated-bg-5.jpg",
+      "url": null,
+      "free": null,
+      "reason": "Generated (no URL)"
+    },
+    {
+      "category": "occlusion",
+      "id": 23,
+      "asset": "product",
+      "filename": "generated-prd-5.jpg",
+      "url": null,
+      "free": null,
+      "reason": "Generated (no URL)"
+    }
+  ]
+}

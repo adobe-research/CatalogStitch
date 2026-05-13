@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CatalogStitch-Eval Stitch Viewer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f8f9fa;
+      --panel: rgba(255, 255, 255, 0.95);
+      --panel-strong: #ffffff;
+      --ink: #1a1a2e;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --accent: #4f46e5;
+      --accent-soft: #eef2ff;
+      --shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+    }
+    .shell {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 26px 18px 48px;
+    }
+    .topbar {
+      margin-bottom: 18px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+    .topbar a.back {
+      display: inline-flex;
+      align-items: center;
+      margin-bottom: 10px;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+    }
+    .subtitle {
+      margin: 0 0 14px;
+      max-width: 920px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    .toolbar input {
+      flex: 1 1 280px;
+      min-height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0 16px;
+      background: #fff;
+      font: inherit;
+    }
+    .toolbar .stats {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    .toolbar .integrity {
+      color: var(--muted);
+      font-size: 0.92rem;
+      white-space: nowrap;
+    }
+    .chipbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .chipbar a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--panel-strong);
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+    .viewer-note {
+      margin: 18px 0 22px;
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--panel);
+      color: var(--muted);
+      line-height: 1.6;
+      box-shadow: var(--shadow);
+    }
+    .entry-list {
+      display: grid;
+      gap: 18px;
+    }
+    .entry-card {
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+    .entry-card[hidden] {
+      display: none !important;
+    }
+    .entry-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .entry-title {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .entry-title h2 {
+      margin: 0;
+      font-size: 1.45rem;
+    }
+    .entry-title .meta {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .section-grid {
+      display: grid;
+      gap: 20px;
+    }
+    .panel {
+      padding: 0;
+    }
+    .panel h3 {
+      margin: 0 0 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+    }
+    .asset-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 8px;
+    }
+    .result-groups {
+      display: grid;
+      gap: 16px;
+    }
+    .model-group {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px;
+      background: #fff;
+    }
+    .model-group h4 {
+      margin: 0 0 10px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--muted);
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      display: inline-block;
+    }
+    .model-group .row-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+    }
+    .model-group .row-grid .col-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-align: center;
+      color: var(--muted);
+      padding: 2px 0;
+    }
+    .model-group .row-grid .col-label.ours {
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .asset.zoomable {
+      cursor: zoom-in;
+    }
+    figure.asset {
+      margin: 0;
+      display: grid;
+      gap: 4px;
+    }
+    .asset .title {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-align: center;
+    }
+    .media {
+      height: 150px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--line);
+    }
+    .media img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      background: #fff;
+    }
+    .placeholder {
+      height: 100%;
+      width: 100%;
+      padding: 12px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 0.9rem;
+    }
+    .asset figcaption {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.45;
+      word-break: break-word;
+    }
+    .asset figcaption a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .footer-space {
+      height: 24px;
+    }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(20, 24, 30, 0.84);
+      z-index: 9999;
+      padding: 20px;
+    }
+    .lightbox.open {
+      display: flex;
+    }
+    .lightbox figure {
+      margin: 0;
+      max-width: min(92vw, 1300px);
+      max-height: 92vh;
+      display: grid;
+      gap: 10px;
+    }
+    .lightbox img {
+      max-width: 100%;
+      max-height: calc(92vh - 52px);
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .lightbox figcaption {
+      color: #f2f4f8;
+      text-align: center;
+      font-size: 0.92rem;
+    }
+    @media (max-width: 720px) {
+      .shell {
+        padding: 18px 12px 36px;
+      }
+      .topbar {
+        padding: 16px;
+      }
+      .entry-card {
+        padding: 16px;
+      }
+      .asset-grid {
+        grid-template-columns: repeat(auto-fit, minmax(138px, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <section class="topbar">
+      <a class="back" href="../../index.html">&larr; Dataset Home</a>
+      <h1>Dimension-Aware Stitch Viewer</h1>
+      <p class="subtitle">Browse all 35 aspect-ratio mismatch examples from CatalogStitch-Eval. Entries are grouped by category: Shoe, Helmet, Clock, Flowervase, Sofa, Juice. Compare OmniPaint, InsertAnything, and ObjectStitch outputs across freeform, bounding box, and dimension-aware masks.</p>
+      <div class="toolbar">
+        <input id="filterBox" type="search" placeholder="Filter by example, source, or filename">
+        <div class="stats"><span id="visibleCount"></span> visible</div>
+        <div class="integrity" id="integrityStatus">Images: checking...</div>
+      </div>
+      <div class="chipbar" id="chipBar"></div>
+    </section>
+
+    <section class="viewer-note">
+      Inputs, masks, and model outputs are bundled for direct browsing in this viewer. If an input is missing, use the source URL in the caption to retrieve it.
+    </section>
+
+    <main class="entry-list" id="entryList"></main>
+    <div class="footer-space"></div>
+  </div>
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <figure>
+      <img id="lightboxImg" alt="">
+      <figcaption id="lightboxCaption"></figcaption>
+    </figure>
+  </div>
+
+  <script>
+    const VIEWER_KIND = "stitch";
+    const ENTRIES = [{"id": 1, "label": "Stitch Shoe", "generated": false, "background": {"filename": "bg_pexels-karola-g2-5560.jpg", "url": "https://www.pexels.com/photo/wedding-shoes-5560/", "status": "found"}, "product": {"filename": "obj_pexels-camilo-martinez-326724028-13793387.jpg", "url": "https://www.pexels.com/photo/photograph-of-a-white-sneaker-on-the-grass-13793387/", "status": "found"}}, {"id": 2, "label": "Stitch Shoe", "generated": false, "background": {"filename": "bg_pexels-krista-glizdeniece-2150567376-33203963.jpg", "url": "https://www.pexels.com/photo/abandoned-shoe-on-latvian-beach-sand-33203963/", "status": "found"}, "product": {"filename": "obj_pexels-1242304473-30229963.jpg", "url": "https://www.pexels.com/photo/stylish-leather-boot-on-white-box-30229963/", "status": "found"}}, {"id": 3, "label": "Stitch Shoe", "generated": false, "background": {"filename": "bg_pexels-sneepcrew-8188890.jpg", "url": "https://www.pexels.com/photo/close-up-shot-of-white-shoes-on-the-rock-8188890/", "status": "found"}, "product": {"filename": "obj_pexels-1242304473-30229963.jpg", "url": "https://www.pexels.com/photo/stylish-leather-boot-on-white-box-30229963/", "status": "found"}}, {"id": 4, "label": "Stitch Shoe", "generated": false, "background": {"filename": "bg_pexels-sneepcrew-8373049.jpg", "url": "https://www.pexels.com/photo/close-up-shot-of-a-gray-sneaker-8373049/", "status": "found"}, "product": {"filename": "obj_pexels-1242304473-30229963.jpg", "url": "https://www.pexels.com/photo/stylish-leather-boot-on-white-box-30229963/", "status": "found"}}, {"id": 5, "label": "Stitch Shoe", "generated": false, "background": {"filename": "bg_pexels-sneepcrew-8373049.jpg", "url": "https://www.pexels.com/photo/close-up-shot-of-a-gray-sneaker-8373049/", "status": "found"}, "product": {"filename": "obj_pexels-camilo-martinez-326724028-13793387.jpg", "url": "https://www.pexels.com/photo/photograph-of-a-white-sneaker-on-the-grass-13793387/", "status": "found"}}, {"id": 6, "label": "Stitch Helmet", "generated": false, "background": {"filename": "bg_pexels-homesickalien-30876299.jpg", "url": "https://www.pexels.com/photo/vintage-motorcycle-helmet-in-sunlight-30876299/", "status": "found"}, "product": {"filename": "obj_pexels-labskiii-14090898.jpg", "url": "https://www.pexels.com/photo/helmet-for-auto-racing-14090898/", "status": "found"}}, {"id": 7, "label": "Stitch Helmet", "generated": false, "background": {"filename": "bg_pexels-imperioame-18213326.jpg", "url": "https://www.pexels.com/photo/person-wearing-black-leather-boots-stepping-on-a-biker-helmet-18213326/", "status": "found"}, "product": {"filename": "obj_pexels-pratik-brahmbhatt-1479980869-28051516.jpg", "url": "https://www.pexels.com/photo/helmet-28051516/", "status": "found"}}, {"id": 8, "label": "Stitch Helmet", "generated": false, "background": {"filename": "bg_pexels-matreding-33995284.jpg", "url": "https://www.pexels.com/photo/vintage-racing-helmet-with-marlboro-branding-33995284/", "status": "found"}, "product": {"filename": "obj_pexels-pratik-brahmbhatt-1479980869-28051516.jpg", "url": "https://www.pexels.com/photo/helmet-28051516/", "status": "found"}}, {"id": 9, "label": "Stitch Helmet", "generated": false, "background": {"filename": "bg_pexels-mohit-hambiria-92377455-17855875.jpg", "url": "https://www.pexels.com/photo/lamborghini-aventador-17855875/", "status": "found"}, "product": {"filename": "obj_pexels-pratik-brahmbhatt-1479980869-28051516.jpg", "url": "https://www.pexels.com/photo/helmet-28051516/", "status": "found"}}, {"id": 10, "label": "Stitch Helmet", "generated": false, "background": {"filename": "bg_pexels-oguzhan-oncu-349382156-19203922.jpg", "url": "https://www.pexels.com/photo/motorcycle-helmet-on-the-concrete-19203922/", "status": "found"}, "product": {"filename": "obj_pexels-pratik-brahmbhatt-1479980869-28051516.jpg", "url": "https://www.pexels.com/photo/helmet-28051516/", "status": "found"}}, {"id": 11, "label": "Stitch Helmet", "generated": false, "background": {"filename": "bg_pexels-pravinkumar-ganesan-275577427-13023676.jpg", "url": "https://www.pexels.com/photo/close-up-shot-of-a-motorcycle-helmet-on-the-beach-13023676/", "status": "found"}, "product": {"filename": "obj_pexels-labskiii-14090898.jpg", "url": "https://www.pexels.com/photo/helmet-for-auto-racing-14090898/", "status": "found"}}, {"id": 12, "label": "Stitch Helmet", "generated": false, "background": {"filename": "bg_pexels-pravinkumar-ganesan-275577427-13023676.jpg", "url": "https://www.pexels.com/photo/close-up-shot-of-a-motorcycle-helmet-on-the-beach-13023676/", "status": "found"}, "product": {"filename": "obj_pexels-pratik-brahmbhatt-1479980869-28051516.jpg", "url": "https://www.pexels.com/photo/helmet-28051516/", "status": "found"}}, {"id": 13, "label": "Stitch Helmet", "generated": false, "background": {"filename": "bg_pexels-pravinkumar-ganesan-275577427-13023676.jpg", "url": "https://www.pexels.com/photo/close-up-shot-of-a-motorcycle-helmet-on-the-beach-13023676/", "status": "found"}, "product": {"filename": "obj_pexels-wolfart-10392247.jpg", "url": "https://www.pexels.com/photo/motorcycle-helmet-with-minion-design-10392247/", "status": "found"}}, {"id": 14, "label": "Stitch Helmet", "generated": false, "background": {"filename": "bg_pexels-sanjeev-136933423-10272524.jpg", "url": "https://www.pexels.com/photo/white-helmet-on-the-ground-10272524/", "status": "found"}, "product": {"filename": "obj_pexels-imtiaj-uddin-rayhan-1187618493-26831796.jpg", "url": "https://www.pexels.com/photo/a-helmet-with-a-reflective-visor-standing-on-the-ground-26831796/", "status": "found"}}, {"id": 15, "label": "Stitch Helmet", "generated": false, "background": {"filename": "bg_pexels-sanjeev-136933423-10272524.jpg", "url": "https://www.pexels.com/photo/white-helmet-on-the-ground-10272524/", "status": "found"}, "product": {"filename": "obj_pexels-pratik-brahmbhatt-1479980869-28051516.jpg", "url": "https://www.pexels.com/photo/helmet-28051516/", "status": "found"}}, {"id": 16, "label": "Stitch Helmet", "generated": false, "background": {"filename": "bg_pexels-travelerchitect-16774940.jpg", "url": "https://www.pexels.com/photo/motorcycle-helmet-with-bird-behind-16774940/", "status": "found"}, "product": {"filename": "obj_pexels-pratik-brahmbhatt-1479980869-28051516.jpg", "url": "https://www.pexels.com/photo/helmet-28051516/", "status": "found"}}, {"id": 17, "label": "Stitch Clock", "generated": false, "background": {"filename": "bg_pexels-105648863-10380840.jpg", "url": "https://www.pexels.com/photo/an-alarm-clock-on-a-wooden-table-10380840/", "status": "found"}, "product": {"filename": "obj_pexels-jessica-monte-67886-239831.jpg", "url": "https://www.pexels.com/photo/white-table-clock-displaying-12-30-239831/", "status": "found"}}, {"id": 18, "label": "Stitch Clock", "generated": false, "background": {"filename": "bg_pexels-105648863-10380840.jpg", "url": "https://www.pexels.com/photo/an-alarm-clock-on-a-wooden-table-10380840/", "status": "found"}, "product": {"filename": "obj_pexels-kindelmedia-7054763.jpg", "url": "https://www.pexels.com/photo/a-clock-with-white-hands-on-pink-background-7054763/", "status": "found"}}, {"id": 19, "label": "Stitch Clock", "generated": false, "background": {"filename": "bg_pexels-eniko-toth-473630-32831579.jpg", "url": "https://www.pexels.com/photo/blue-alarm-clock-with-pilea-plant-on-white-table-32831579/", "status": "found"}, "product": {"filename": "obj_pexels-jessica-monte-67886-239831.jpg", "url": "https://www.pexels.com/photo/white-table-clock-displaying-12-30-239831/", "status": "found"}}, {"id": 20, "label": "Stitch Clock", "generated": false, "background": {"filename": "bg_pexels-eniko-toth-473630-32831579.jpg", "url": "https://www.pexels.com/photo/blue-alarm-clock-with-pilea-plant-on-white-table-32831579/", "status": "found"}, "product": {"filename": "obj_pexels-kindelmedia-7054763.jpg", "url": "https://www.pexels.com/photo/a-clock-with-white-hands-on-pink-background-7054763/", "status": "found"}}, {"id": 21, "label": "Stitch Clock", "generated": false, "background": {"filename": "bg_pexels-monoar-rahman-22660-100733.jpg", "url": "https://www.pexels.com/photo/selective-focus-photography-gray-analog-clock-on-black-surface-100733/", "status": "found"}, "product": {"filename": "obj_pexels-koolshooters-7346144.jpg", "url": "https://www.pexels.com/photo/pink-alarm-clock-7346144/", "status": "found"}}, {"id": 22, "label": "Stitch Clock", "generated": false, "background": {"filename": "bg_pexels-monoar-rahman-22660-100733.jpg", "url": "https://www.pexels.com/photo/selective-focus-photography-gray-analog-clock-on-black-surface-100733/", "status": "found"}, "product": {"filename": "obj_pexels-pixabay-161870.jpg", "url": "https://www.pexels.com/photo/brown-framed-alarm-clock-on-brown-table-161870/", "status": "found"}}, {"id": 23, "label": "Stitch Clock", "generated": false, "background": {"filename": "bg_pexels-tara-winstead-7123604.jpg", "url": "https://www.pexels.com/photo/gray-analog-clock-on-a-wooden-table-7123604/", "status": "found"}, "product": {"filename": "obj_pexels-jessica-monte-67886-239831.jpg", "url": "https://www.pexels.com/photo/white-table-clock-displaying-12-30-239831/", "status": "found"}}, {"id": 24, "label": "Stitch Clock", "generated": false, "background": {"filename": "bg_pexels-tara-winstead-7123604.jpg", "url": "https://www.pexels.com/photo/gray-analog-clock-on-a-wooden-table-7123604/", "status": "found"}, "product": {"filename": "obj_pexels-pixabay-161870.jpg", "url": "https://www.pexels.com/photo/brown-framed-alarm-clock-on-brown-table-161870/", "status": "found"}}, {"id": 25, "label": "Stitch Clock", "generated": false, "background": {"filename": "bg_pexels-tkirkgoz-11377759.jpg", "url": "https://www.pexels.com/photo/an-analog-clock-between-potted-plants-on-a-wooden-surface-11377759/", "status": "found"}, "product": {"filename": "obj_pexels-koolshooters-7346144.jpg", "url": "https://www.pexels.com/photo/pink-alarm-clock-7346144/", "status": "found"}}, {"id": 26, "label": "Stitch Clock", "generated": false, "background": {"filename": "bg_pexels-tkirkgoz-11377759.jpg", "url": "https://www.pexels.com/photo/an-analog-clock-between-potted-plants-on-a-wooden-surface-11377759/", "status": "found"}, "product": {"filename": "obj_pexels-pixabay-161870.jpg", "url": "https://www.pexels.com/photo/brown-framed-alarm-clock-on-brown-table-161870/", "status": "found"}}, {"id": 27, "label": "Stitch Flowervase", "generated": false, "background": {"filename": "bg_pexels-derya-nur-2018604754-33891813.jpg", "url": "https://www.pexels.com/photo/cozy-indoor-scene-with-potted-kalanchoe-plant-33891813/", "status": "found"}, "product": {"filename": "obj_pexels-didsss-1302305.jpg", "url": "https://www.pexels.com/photo/cactus-in-brown-vase-1302305/", "status": "found"}}, {"id": 28, "label": "Stitch Flowervase", "generated": false, "background": {"filename": "bg_pexels-freestocks-284010.jpg", "url": "https://www.pexels.com/photo/white-ceramic-cup-near-laptop-284010/", "status": "found"}, "product": {"filename": "obj_pexels-andy-lee-222330306-34657262.jpg", "url": "https://www.pexels.com/photo/elegant-anthurium-in-artistic-yellow-vase-34657262/", "status": "found"}}, {"id": 29, "label": "Stitch Flowervase", "generated": false, "background": {"filename": "bg_pexels-freestocks-284010.jpg", "url": "https://www.pexels.com/photo/white-ceramic-cup-near-laptop-284010/", "status": "found"}, "product": {"filename": "obj_pexels-didsss-1302305.jpg", "url": "https://www.pexels.com/photo/cactus-in-brown-vase-1302305/", "status": "found"}}, {"id": 30, "label": "Stitch Flowervase", "generated": false, "background": {"filename": "bg_pexels-freestocks-284010.jpg", "url": "https://www.pexels.com/photo/white-ceramic-cup-near-laptop-284010/", "status": "found"}, "product": {"filename": "obj_pexels-nguy-n-ti-n-th-nh-2150376175-33791097.jpg", "url": "https://www.pexels.com/photo/vibrant-gerbera-daisy-in-modern-vase-on-wooden-table-33791097/", "status": "found"}}, {"id": 31, "label": "Stitch Flowervase", "generated": false, "background": {"filename": "bg_pexels-paolobici-33010574.jpg", "url": "https://www.pexels.com/photo/rustic-table-with-potted-flowers-in-tirana-33010574/", "status": "found"}, "product": {"filename": "obj_pexels-andy-lee-222330306-34657262.jpg", "url": "https://www.pexels.com/photo/elegant-anthurium-in-artistic-yellow-vase-34657262/", "status": "found"}}, {"id": 32, "label": "Stitch Sofa", "generated": false, "background": {"filename": "bg_pexels-artbovich-8135269.jpg", "url": "https://www.pexels.com/photo/a-blue-sofa-with-cushions-8135269/", "status": "found"}, "product": {"filename": "obj_trung1142-sofa-7347875.jpg", "url": "https://pixabay.com/illustrations/sofa-couch-furniture-isolated-7347875/", "status": "found"}}, {"id": 33, "label": "Stitch Sofa", "generated": false, "background": {"filename": "bg_pexels-artbovich-8135269.jpg", "url": "https://www.pexels.com/photo/a-blue-sofa-with-cushions-8135269/", "status": "found"}, "product": {"filename": "obj_pexels-kseniachernaya-11112731.jpg", "url": "https://www.pexels.com/photo/a-sofa-near-a-white-wall-11112731/", "status": "found"}}, {"id": 34, "label": "Stitch Juice", "generated": false, "background": {"filename": "bg_pexels-pixabay-158053.jpg", "url": "https://www.pexels.com/photo/selective-focus-photography-of-pure-orange-juice-158053/", "status": "found"}, "product": {"filename": "obj_pexels-ryutaro-6249466.jpg", "url": "https://www.pexels.com/photo/glass-of-refreshing-drink-with-ice-on-table-6249466/", "status": "found"}}, {"id": 35, "label": "Stitch Juice", "generated": false, "background": {"filename": "bg_pexels-wolfart-20130416.jpg", "url": "https://www.pexels.com/photo/pouring-juice-to-glass-20130416/", "status": "found"}, "product": {"filename": "obj_pexels-8pcarlos-morocho-2150734957-35800294.jpg", "url": "https://www.pexels.com/photo/refreshing-glass-of-orange-juice-on-dark-background-35800294/", "status": "found"}}];
+
+    const stitchOutputGroups = [
+      {
+        model: "OmniPaint",
+        specs: [
+          ["Freeform", "omniPaint_nonOptimal"],
+          ["BBox", "omniPaint_bbox"],
+          ["Dim-Aware", "omniPaint_optimal"],
+        ],
+      },
+      {
+        model: "InsertAnything",
+        specs: [
+          ["Freeform", "insertAnything_nonOptimal"],
+          ["BBox", "insertAnything_bbox"],
+          ["Dim-Aware", "insertAnything_optimal"],
+        ],
+      },
+      {
+        model: "ObjectStitch",
+        specs: [
+          ["Freeform", "objectStitch_nonOptimal"],
+          ["BBox", "objectStitch_bbox"],
+          ["Dim-Aware", "objectStitch_optimal"],
+        ],
+      },
+    ];
+
+    const occlusionOutputGroups = [
+      {
+        model: "InsertAnything",
+        specs: [
+          ["Freeform Before", "insertAnything_freeform_before"],
+          ["Freeform After", "insertAnything_freeform_after"],
+          ["BBox Before", "insertAnything_bbox_before"],
+          ["BBox After", "insertAnything_bbox_after"],
+          ["Dim-Aware Before", "insertAnything_optimal_before"],
+          ["Dim-Aware After", "insertAnything_optimal_after"],
+        ],
+      },
+      {
+        model: "ObjectStitch",
+        specs: [
+          ["Freeform Before", "objectStitch_nonOptimal_before"],
+          ["Freeform After", "objectStitch_nonOptimal_after"],
+          ["BBox Before", "objectStitch_bbox_before"],
+          ["BBox After", "objectStitch_bbox_after"],
+          ["Dim-Aware Before", "objectStitch_optimal_before"],
+          ["Dim-Aware After", "objectStitch_optimal_after"],
+        ],
+      },
+    ];
+
+    const imageAudit = {
+      loaded: 0,
+      missing: 0,
+    };
+
+    function htmlEscape(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;");
+    }
+
+    function updateIntegrityStatus() {
+      const node = document.getElementById("integrityStatus");
+      if (!node) {
+        return;
+      }
+      const missingText = imageAudit.missing > 0 ? " (check missing placeholders)" : "";
+      node.textContent = `Images loaded: ${imageAudit.loaded}, missing: ${imageAudit.missing}${missingText}`;
+    }
+
+    function openLightbox(src, caption) {
+      const lightbox = document.getElementById("lightbox");
+      const img = document.getElementById("lightboxImg");
+      const cap = document.getElementById("lightboxCaption");
+      img.src = src;
+      cap.textContent = caption || "";
+      lightbox.classList.add("open");
+      lightbox.setAttribute("aria-hidden", "false");
+    }
+
+    function closeLightbox() {
+      const lightbox = document.getElementById("lightbox");
+      const img = document.getElementById("lightboxImg");
+      lightbox.classList.remove("open");
+      lightbox.setAttribute("aria-hidden", "true");
+      img.src = "";
+    }
+
+    function outputCandidates(base, stem) {
+      return [
+        base + stem + ".jpg",
+        base + stem + ".png",
+        base + stem + ".jpeg",
+        base + stem + ".JPG",
+        base + stem + ".PNG",
+      ];
+    }
+
+    function inputCandidates(folder, filename) {
+      const dot = filename.lastIndexOf(".");
+      if (dot < 0) {
+        return [folder + filename];
+      }
+      const stem = filename.slice(0, dot);
+      const ext = filename.slice(dot + 1);
+      const candidates = [folder + filename];
+      if (ext.toLowerCase() === "jpg") {
+        candidates.push(folder + stem + ".png");
+      } else if (ext.toLowerCase() === "png") {
+        candidates.push(folder + stem + ".jpg");
+      }
+      candidates.push(folder + stem + ".jpeg");
+      return candidates;
+    }
+
+    function appendImageOrPlaceholder(media, candidates, placeholderHtml, descriptor) {
+      const img = document.createElement("img");
+      img.loading = "lazy";
+      img.alt = "";
+      let candidateIdx = 0;
+
+      function setPlaceholder() {
+        imageAudit.missing += 1;
+        updateIntegrityStatus();
+        const placeholder = document.createElement("div");
+        placeholder.className = "placeholder";
+        placeholder.innerHTML = placeholderHtml;
+        if (img.parentNode === media) {
+          media.replaceChildren(placeholder);
+        } else {
+          media.appendChild(placeholder);
+        }
+      }
+
+      function tryNextCandidate() {
+        if (candidateIdx >= candidates.length) {
+          setPlaceholder();
+          return;
+        }
+        img.src = candidates[candidateIdx];
+        candidateIdx += 1;
+      }
+
+      img.onerror = () => {
+        tryNextCandidate();
+      };
+
+      img.onload = () => {
+        imageAudit.loaded += 1;
+        updateIntegrityStatus();
+        media.classList.add("zoomable");
+        media.addEventListener("click", () => openLightbox(img.currentSrc || img.src, descriptor), { once: true });
+      };
+
+      media.appendChild(img);
+      tryNextCandidate();
+    }
+
+    function buildCaption(meta) {
+      if (!meta) {
+        return "";
+      }
+      const parts = [];
+      if (meta.filename) {
+        parts.push("<strong>" + htmlEscape(meta.filename) + "</strong>");
+      }
+      if (meta.status === "generated") {
+        parts.push("Generated asset");
+      } else if (meta.url) {
+        parts.push('<a href="' + htmlEscape(meta.url) + '" target="_blank" rel="noreferrer">Source URL</a>');
+      }
+      return parts.join("<br>");
+    }
+
+    function createAssetCard(title, candidates, placeholderHtml, captionHtml, descriptor) {
+      const figure = document.createElement("figure");
+      figure.className = "asset";
+
+      const titleEl = document.createElement("div");
+      titleEl.className = "title";
+      titleEl.textContent = title;
+      figure.appendChild(titleEl);
+
+      const media = document.createElement("div");
+      media.className = "media";
+      appendImageOrPlaceholder(media, candidates, placeholderHtml, descriptor);
+      figure.appendChild(media);
+
+      const caption = document.createElement("figcaption");
+      caption.innerHTML = captionHtml || "";
+      figure.appendChild(caption);
+
+      return figure;
+    }
+
+    function inputAsset(entry, kind) {
+      const meta = kind === "background" ? entry.background : entry.product;
+      const folder = kind === "background" ? "../../images/backgrounds/" : "../../images/products/";
+      const placeholder = meta.status === "generated"
+        ? "Generated input asset.<br>No local file or source URL is bundled."
+        : "Optional local input image.<br>Download it into <code>" + folder.replace("../../", "") + "</code> to preview here.";
+      return createAssetCard(
+        kind === "background" ? "Background" : "Product",
+        inputCandidates(folder, meta.filename),
+        placeholder,
+        buildCaption(meta),
+        `Entry ${entry.id} - ${kind}`
+      );
+    }
+
+    function maskAsset(entry, title, stem) {
+      const base = VIEWER_KIND === "stitch"
+        ? "../../masks/stitch/" + entry.id + "/"
+        : "../../masks/occlusion/" + entry.id + "/";
+      return createAssetCard(
+        title,
+        outputCandidates(base, stem),
+        "Mask file missing.",
+        "",
+        `Entry ${entry.id} - ${title}`
+      );
+    }
+
+    function outputAsset(entry, title, stem) {
+      const base = "./" + entry.id + "/";
+      return createAssetCard(
+        title,
+        outputCandidates(base, stem),
+        "Result file missing.",
+        "",
+        `Entry ${entry.id} - ${title}`
+      );
+    }
+
+    function renderOutputGroups(entry) {
+      const groups = VIEWER_KIND === "stitch" ? stitchOutputGroups : occlusionOutputGroups;
+      const wrap = document.createElement("div");
+      wrap.className = "result-groups";
+
+      if (VIEWER_KIND === "stitch") {
+        // Project-page style: Background | Product | Freeform | BBox | Ours per model
+        groups.forEach((group) => {
+          const block = document.createElement("div");
+          block.className = "model-group";
+          const heading = document.createElement("h4");
+          heading.textContent = group.model;
+          block.appendChild(heading);
+
+          const grid = document.createElement("div");
+          grid.className = "row-grid";
+          // Column headers
+          ["Background", "Product", "Freeform", "BBox", ""].forEach((label, i) => {
+            const lbl = document.createElement("div");
+            lbl.className = "col-label" + (i === 4 ? " ours" : "");
+            lbl.textContent = i === 4 ? "Ours" : label;
+            grid.appendChild(lbl);
+          });
+          // Input images
+          const bgBase = "../../images/backgrounds/";
+          const prodBase = "../../images/products/";
+          grid.appendChild(createCompactImage(inputCandidates(bgBase, entry.background.filename), `${entry.id} bg`));
+          grid.appendChild(createCompactImage(inputCandidates(prodBase, entry.product.filename), `${entry.id} product`));
+          // Output images
+          group.specs.forEach(([label, stem]) => {
+            const base = "./" + entry.id + "/";
+            grid.appendChild(createCompactImage(outputCandidates(base, stem), `${entry.id} ${group.model} ${label}`));
+          });
+          block.appendChild(grid);
+          wrap.appendChild(block);
+        });
+      } else {
+        // Occlusion: keep original grouped layout
+        groups.forEach((group) => {
+          const block = document.createElement("div");
+          block.className = "model-group";
+          const heading = document.createElement("h4");
+          heading.textContent = group.model;
+          block.appendChild(heading);
+          const grid = document.createElement("div");
+          grid.className = "asset-grid";
+          group.specs.forEach(([label, stem]) => {
+            grid.appendChild(outputAsset(entry, `${group.model} ${label}`, stem));
+          });
+          block.appendChild(grid);
+          wrap.appendChild(block);
+        });
+      }
+      return wrap;
+    }
+
+    function createCompactImage(candidates, descriptor) {
+      const wrap = document.createElement("div");
+      const media = document.createElement("div");
+      media.className = "media";
+      appendImageOrPlaceholder(media, candidates, "Missing", descriptor);
+      wrap.appendChild(media);
+      return wrap;
+    }
+
+    function renderEntry(entry, exampleNumber) {
+      const card = document.createElement("article");
+      card.className = "entry-card";
+      card.id = "example-" + exampleNumber;
+      card.dataset.entryId = String(entry.id);
+      card.dataset.search = [
+        String(exampleNumber),
+        String(entry.id),
+        entry.label || "",
+        entry.background.filename,
+        entry.product.filename,
+        entry.background.url || "",
+        entry.product.url || ""
+      ].join(" ").toLowerCase();
+
+      const header = document.createElement("div");
+      header.className = "entry-header";
+      header.innerHTML = `
+        <div class="entry-title">
+          <h2>Example ${exampleNumber}</h2>
+          <span class="meta">${htmlEscape(entry.label || "")}</span>
+        </div>
+        ${entry.generated ? '<span class="badge">Generated asset included</span>' : '<span class="badge">Sourced scene</span>'}
+      `;
+      card.appendChild(header);
+
+      const sectionGrid = document.createElement("div");
+      sectionGrid.className = "section-grid";
+
+      const inputPanel = document.createElement("section");
+      inputPanel.className = "panel";
+      inputPanel.innerHTML = "<h3>Inputs</h3>";
+      const inputGrid = document.createElement("div");
+      inputGrid.className = "asset-grid";
+      inputGrid.appendChild(inputAsset(entry, "background"));
+      inputGrid.appendChild(inputAsset(entry, "product"));
+      inputPanel.appendChild(inputGrid);
+      sectionGrid.appendChild(inputPanel);
+
+      const maskPanel = document.createElement("section");
+      maskPanel.className = "panel";
+      maskPanel.innerHTML = "<h3>Masks and Overlays</h3>";
+      const maskGrid = document.createElement("div");
+      maskGrid.className = "asset-grid";
+      maskGrid.appendChild(maskAsset(entry, "Mask Overlay (BG Dim-Aware=blue, BG BBox=pink)", "mask_overlay"));
+      maskGrid.appendChild(maskAsset(entry, "BG Freeform Mask", "bg_freeform_mask"));
+      maskGrid.appendChild(maskAsset(entry, "BG BBox Mask", "bg_bbox"));
+      maskGrid.appendChild(maskAsset(entry, "BG Dim-Aware Mask", "bg_mask"));
+      maskGrid.appendChild(maskAsset(entry, "Object Mask", "obj_mask"));
+      if (VIEWER_KIND === "occlusion") {
+        maskGrid.appendChild(maskAsset(entry, "Overlapping Entities", "overlaps_composite"));
+      }
+      maskPanel.appendChild(maskGrid);
+      sectionGrid.appendChild(maskPanel);
+
+      const resultPanel = document.createElement("section");
+      resultPanel.className = "panel";
+      resultPanel.innerHTML = "<h3>Model Outputs</h3>";
+      resultPanel.appendChild(renderOutputGroups(entry));
+      sectionGrid.appendChild(resultPanel);
+
+      card.appendChild(sectionGrid);
+      return card;
+    }
+
+    function renderChips(entries) {
+      const chipBar = document.getElementById("chipBar");
+      entries.forEach((entry, idx) => {
+        const exampleNumber = idx + 1;
+        const link = document.createElement("a");
+        link.href = "#example-" + exampleNumber;
+        link.textContent = String(exampleNumber);
+        link.title = "Example " + exampleNumber;
+        chipBar.appendChild(link);
+      });
+    }
+
+    function updateVisibleCount() {
+      const cards = Array.from(document.querySelectorAll(".entry-card"));
+      const visible = cards.filter((card) => !card.hidden).length;
+      document.getElementById("visibleCount").textContent = visible;
+    }
+
+    function applyFilter() {
+      const query = document.getElementById("filterBox").value.trim().toLowerCase();
+      document.querySelectorAll(".entry-card").forEach((card) => {
+        card.hidden = query && !card.dataset.search.includes(query);
+      });
+      updateVisibleCount();
+    }
+
+    function init() {
+      const list = document.getElementById("entryList");
+      ENTRIES.forEach((entry, idx) => list.appendChild(renderEntry(entry, idx + 1)));
+      renderChips(ENTRIES);
+      document.getElementById("filterBox").addEventListener("input", applyFilter);
+      const lightbox = document.getElementById("lightbox");
+      lightbox.addEventListener("click", (event) => {
+        if (event.target === lightbox || event.target.id === "lightboxImg") {
+          closeLightbox();
+        }
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          closeLightbox();
+        }
+      });
+      updateIntegrityStatus();
+      updateVisibleCount();
+    }
+
+    init();
+  </script>
+</body>
+</html>

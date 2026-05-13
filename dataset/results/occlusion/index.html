@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CatalogStitch-Eval Occlusion Viewer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f8f9fa;
+      --panel: rgba(255, 255, 255, 0.95);
+      --panel-strong: #ffffff;
+      --ink: #1a1a2e;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --accent: #4f46e5;
+      --accent-soft: #eef2ff;
+      --shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+    }
+    .shell {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 26px 18px 48px;
+    }
+    .topbar {
+      margin-bottom: 18px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+    .topbar a.back {
+      display: inline-flex;
+      align-items: center;
+      margin-bottom: 10px;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+    }
+    .subtitle {
+      margin: 0 0 14px;
+      max-width: 920px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    .toolbar input {
+      flex: 1 1 280px;
+      min-height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0 16px;
+      background: #fff;
+      font: inherit;
+    }
+    .toolbar .stats {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    .toolbar .integrity {
+      color: var(--muted);
+      font-size: 0.92rem;
+      white-space: nowrap;
+    }
+    .chipbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .chipbar a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--panel-strong);
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+    .viewer-note {
+      margin: 18px 0 22px;
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--panel);
+      color: var(--muted);
+      line-height: 1.6;
+      box-shadow: var(--shadow);
+    }
+    .entry-list {
+      display: grid;
+      gap: 18px;
+    }
+    .entry-card {
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+    .entry-card[hidden] {
+      display: none !important;
+    }
+    .entry-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .entry-title {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .entry-title h2 {
+      margin: 0;
+      font-size: 1.45rem;
+    }
+    .entry-title .meta {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .section-grid {
+      display: grid;
+      gap: 20px;
+    }
+    .panel {
+      padding: 0;
+    }
+    .panel h3 {
+      margin: 0 0 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+    }
+    .asset-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 8px;
+    }
+    .result-groups {
+      display: grid;
+      gap: 16px;
+    }
+    .model-group {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px;
+      background: #fff;
+    }
+    .model-group h4 {
+      margin: 0 0 10px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--muted);
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      display: inline-block;
+    }
+    .model-group .row-grid {
+      display: grid;
+      gap: 6px;
+    }
+    .model-group .row-grid.cols-6 {
+      grid-template-columns: repeat(6, 1fr);
+    }
+    .model-group .row-grid .col-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-align: center;
+      color: var(--muted);
+      padding: 2px 0;
+    }
+    .model-group .row-grid .col-label.ours {
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .model-group .row-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin: 8px 0 4px;
+    }
+    .asset.zoomable {
+      cursor: zoom-in;
+    }
+    figure.asset {
+      margin: 0;
+      display: grid;
+      gap: 4px;
+    }
+    .asset .title {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-align: center;
+    }
+    .media {
+      height: 150px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--line);
+    }
+    .media img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      background: #fff;
+    }
+    .placeholder {
+      height: 100%;
+      width: 100%;
+      padding: 12px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 0.9rem;
+    }
+    .asset figcaption {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.45;
+      word-break: break-word;
+    }
+    .asset figcaption a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .footer-space {
+      height: 24px;
+    }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(20, 24, 30, 0.84);
+      z-index: 9999;
+      padding: 20px;
+    }
+    .lightbox.open {
+      display: flex;
+    }
+    .lightbox figure {
+      margin: 0;
+      max-width: min(92vw, 1300px);
+      max-height: 92vh;
+      display: grid;
+      gap: 10px;
+    }
+    .lightbox img {
+      max-width: 100%;
+      max-height: calc(92vh - 52px);
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .lightbox figcaption {
+      color: #f2f4f8;
+      text-align: center;
+      font-size: 0.92rem;
+    }
+    @media (max-width: 720px) {
+      .shell {
+        padding: 18px 12px 36px;
+      }
+      .topbar {
+        padding: 16px;
+      }
+      .entry-card {
+        padding: 16px;
+      }
+      .asset-grid {
+        grid-template-columns: repeat(auto-fit, minmax(138px, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <section class="topbar">
+      <a class="back" href="../../index.html">&larr; Dataset Home</a>
+      <h1>Occlusion-Aware Viewer</h1>
+      <p class="subtitle">Browse all 23 occlusion examples from CatalogStitch-Eval. Each entry shows masks, overlap visualizations, and before/after restoration outputs for InsertAnything and ObjectStitch.</p>
+      <div class="toolbar">
+        <input id="filterBox" type="search" placeholder="Filter by example, source, or filename">
+        <div class="stats"><span id="visibleCount"></span> visible</div>
+        <div class="integrity" id="integrityStatus">Images: checking...</div>
+      </div>
+      <div class="chipbar" id="chipBar"></div>
+    </section>
+
+    <section class="viewer-note">
+      Inputs, masks, and model outputs are bundled for direct browsing in this viewer. If an input is missing, use the source URL in the caption to retrieve it.
+    </section>
+
+    <main class="entry-list" id="entryList"></main>
+    <div class="footer-space"></div>
+  </div>
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <figure>
+      <img id="lightboxImg" alt="">
+      <figcaption id="lightboxCaption"></figcaption>
+    </figure>
+  </div>
+
+  <script>
+    const VIEWER_KIND = "occlusion";
+    const ENTRIES = [{"id": 1, "label": "Occlusion example", "generated": false, "background": {"filename": "bg_pexels-rdne-8581013.jpg", "url": "https://www.pexels.com/photo/white-sofa-beside-white-wall-8581013/", "status": "found"}, "product": {"filename": "obj_personalgraphic-com-4Co4l84sJWg-unsplash.jpg", "url": "https://unsplash.com/photos/a-brown-leather-couch-sitting-on-top-of-a-white-floor-4Co4l84sJWg", "status": "found"}}, {"id": 2, "label": "Occlusion example", "generated": false, "background": {"filename": "bg_pexels-chaitaastic-1918291.jpg", "url": "https://www.pexels.com/photo/green-2-seat-sofa-1918291/", "status": "found"}, "product": {"filename": "obj_personalgraphic-com-4Co4l84sJWg-unsplash.jpg", "url": "https://unsplash.com/photos/a-brown-leather-couch-sitting-on-top-of-a-white-floor-4Co4l84sJWg", "status": "found"}}, {"id": 3, "label": "Occlusion example", "generated": false, "background": {"filename": "bg_skyler-smith-Y7UWQDVuSrE-unsplash.jpg", "url": "https://unsplash.com/photos/a-living-room-with-a-couch-and-a-coffee-table-Y7UWQDVuSrE", "status": "found"}, "product": {"filename": "obj_personalgraphic-com-4Co4l84sJWg-unsplash.jpg", "url": "https://unsplash.com/photos/a-brown-leather-couch-sitting-on-top-of-a-white-floor-4Co4l84sJWg", "status": "found"}}, {"id": 4, "label": "Occlusion example", "generated": false, "background": {"filename": "bg_pexels-arooba-iqbal-436486747-34791363.jpg", "url": "https://www.pexels.com/photo/elegant-teal-chair-in-cozy-living-room-setting-34791363/", "status": "found"}, "product": {"filename": "obj_pexels-markusspiske-105004.jpg", "url": "https://www.pexels.com/photo/house-table-luxury-lamp-105004/", "status": "found"}}, {"id": 5, "label": "Occlusion example", "generated": false, "background": {"filename": "bg_pexels-jdgromov-5668199.jpg", "url": "https://www.pexels.com/photo/stirring-of-orange-and-beetroot-drink-on-a-clear-glass-5668199/", "status": "found"}, "product": {"filename": "obj_pexels-8pcarlos-morocho-2150734957-35800294.jpg", "url": "https://www.pexels.com/photo/refreshing-glass-of-orange-juice-on-dark-background-35800294/", "status": "found"}}, {"id": 6, "label": "Occlusion example", "generated": false, "background": {"filename": "bg_pexels-beautinow-niche-perfume-413075804-15007553.jpg", "url": "https://www.pexels.com/photo/bottle-of-perfume-in-front-of-a-mirror-15007553/", "status": "found"}, "product": {"filename": "obj_pexels-didsss-1653085.jpg", "url": "https://www.pexels.com/photo/close-up-photo-of-perfume-bottle-1653085/", "status": "found"}}, {"id": 7, "label": "Occlusion example", "generated": false, "background": {"filename": "bg_pexels-21435498-6585253.jpg", "url": "https://www.pexels.com/photo/orange-juice-in-clear-drinking-glass-6585253/", "status": "found"}, "product": {"filename": "obj_pexels-ryutaro-6249466.jpg", "url": "https://www.pexels.com/photo/glass-of-refreshing-drink-with-ice-on-table-6249466/", "status": "found"}}, {"id": 8, "label": "Occlusion example", "generated": false, "background": {"filename": "bg_pexels-marko-stojkovic-1187731-17264328.jpg", "url": "https://www.pexels.com/photo/3d-render-of-a-modern-living-room-17264328/", "status": "found"}, "product": {"filename": "obj_trung1142-sofa-7347875.jpg", "url": "https://pixabay.com/illustrations/sofa-couch-furniture-isolated-7347875/", "status": "found"}}, {"id": 9, "label": "Occlusion example", "generated": false, "background": {"filename": "bg_purspective-sofa-8754140.jpg", "url": "https://pixabay.com/illustrations/sofa-space-studio-art-perspective-8754140/", "status": "found"}, "product": {"filename": "obj_trung1142-sofa-7347875.jpg", "url": "https://pixabay.com/illustrations/sofa-couch-furniture-isolated-7347875/", "status": "found"}}, {"id": 10, "label": "Occlusion example", "generated": false, "background": {"filename": "bg_dan-lefebvre-ghUf8UzTK8g-unsplash.jpg", "url": "https://unsplash.com/photos/a-living-room-with-two-couches-and-a-coffee-table-ghUf8UzTK8g", "status": "found"}, "product": {"filename": "obj_personalgraphic-com-4Co4l84sJWg-unsplash.jpg", "url": "https://unsplash.com/photos/a-brown-leather-couch-sitting-on-top-of-a-white-floor-4Co4l84sJWg", "status": "found"}}, {"id": 11, "label": "Occlusion example", "generated": false, "background": {"filename": "bg_pexels-cottonbro-7609139.jpg", "url": "https://www.pexels.com/photo/vintage-telephone-beside-the-bed-7609139/", "status": "found"}, "product": {"filename": "obj_pexels-artempodrez-4612402.jpg", "url": "https://www.pexels.com/photo/a-white-lamp-on-the-table-4612402/", "status": "found"}}, {"id": 12, "label": "Occlusion example", "generated": false, "background": {"filename": "bg_pexels-fadime-demirtas-42037863-13087806.jpg", "url": "https://www.pexels.com/photo/a-green-plant-on-a-ceramic-pot-near-the-cup-of-coffee-on-the-table-13087806/", "status": "found"}, "product": {"filename": "obj_pexels-karola-g-6757651.jpg", "url": "https://www.pexels.com/photo/vase-with-bouquet-6757651/", "status": "found"}}, {"id": 13, "label": "Occlusion example", "generated": false, "background": {"filename": "bg_pexels-artbovich-8082560.jpg", "url": "https://www.pexels.com/photo/blue-sofa-chair-beside-white-lampshade-8082560/", "status": "found"}, "product": {"filename": "obj_pexels-sammsara-luxury-modern-home-372468-1103745.jpg", "url": "https://www.pexels.com/photo/gray-metal-table-lamp-with-white-cone-lampshade-1103745/", "status": "found"}}, {"id": 14, "label": "Occlusion example", "generated": false, "background": {"filename": "bg_pexels-visneligunce-22726130.jpg", "url": "https://www.pexels.com/photo/a-cup-of-coffee-standing-on-a-small-table-with-a-potted-plant-22726130/", "status": "found"}, "product": {"filename": "obj_pexels-karola-g-6757651.jpg", "url": "https://www.pexels.com/photo/vase-with-bouquet-6757651/", "status": "found"}}, {"id": 15, "label": "Occlusion example", "generated": false, "background": {"filename": "bg_pexels-cottonbro-6943418.jpg", "url": "https://www.pexels.com/photo/a-lamp-shade-and-a-clock-on-the-bedside-table-6943418/", "status": "found"}, "product": {"filename": "obj_pexels-446120723-15524191.jpg", "url": "https://www.pexels.com/photo/lamp-in-the-corner-15524191/", "status": "found"}}, {"id": 16, "label": "Occlusion example", "generated": false, "background": {"filename": "bg_prydumano-design-yOx4oPNUR10-unsplash.jpg", "url": "https://unsplash.com/photos/a-living-room-with-a-couch-and-a-table-yOx4oPNUR10", "status": "found"}, "product": {"filename": "obj_trung1142-sofa-7347875.jpg", "url": "https://pixabay.com/illustrations/sofa-couch-furniture-isolated-7347875/", "status": "found"}}, {"id": 17, "label": "Occlusion example", "generated": false, "background": {"filename": "bg_pexels-rachel-claire-5490386.jpg", "url": "https://www.pexels.com/photo/lamp-on-a-wooden-table-5490386/", "status": "found"}, "product": {"filename": "obj_pexels-artempodrez-4612402.jpg", "url": "https://www.pexels.com/photo/a-white-lamp-on-the-table-4612402/", "status": "found"}}, {"id": 18, "label": "Occlusion example", "generated": false, "background": {"filename": "bg_pexels-rachel-claire-4577650.jpg", "url": "https://www.pexels.com/photo/books-and-lamp-on-bedside-table-in-hotel-room-4577650/", "status": "found"}, "product": {"filename": "obj_pexels-wdtoro-26635057.jpg", "url": "https://www.pexels.com/photo/front-view-of-a-golden-coated-antique-desk-lamp-placed-on-the-table-urban-interior-concept-26635057/", "status": "found"}}, {"id": 19, "label": "Occlusion example", "generated": true, "background": {"filename": "generated-bg-4.jpg", "url": null, "status": "generated", "note": "Generated asset, cannot be recreated"}, "product": {"filename": "generated-prd-4.jpg", "url": null, "status": "generated", "note": "Generated asset, cannot be recreated"}}, {"id": 20, "label": "Occlusion example", "generated": true, "background": {"filename": "generated-bg-1.jpg", "url": null, "status": "generated", "note": "Generated asset, cannot be recreated"}, "product": {"filename": "generated-prd-1.jpg", "url": null, "status": "generated", "note": "Generated asset, cannot be recreated"}}, {"id": 21, "label": "Occlusion example", "generated": true, "background": {"filename": "generated-bg-3.jpg", "url": null, "status": "generated", "note": "Generated asset, cannot be recreated"}, "product": {"filename": "generated-prd-3.jpg", "url": null, "status": "generated", "note": "Generated asset, cannot be recreated"}}, {"id": 22, "label": "Occlusion example", "generated": true, "background": {"filename": "generated-bg-2.jpg", "url": null, "status": "generated", "note": "Generated asset, cannot be recreated"}, "product": {"filename": "generated-prd-2.jpg", "url": null, "status": "generated", "note": "Generated asset, cannot be recreated"}}, {"id": 23, "label": "Occlusion example", "generated": true, "background": {"filename": "generated-bg-5.jpg", "url": null, "status": "generated", "note": "Generated asset, cannot be recreated"}, "product": {"filename": "generated-prd-5.jpg", "url": null, "status": "generated", "note": "Generated asset, cannot be recreated"}}];
+
+    const stitchOutputGroups = [
+      {
+        model: "OmniPaint",
+        specs: [
+          ["Freeform", "omniPaint_nonOptimal"],
+          ["BBox", "omniPaint_bbox"],
+          ["Dim-Aware", "omniPaint_optimal"],
+        ],
+      },
+      {
+        model: "InsertAnything",
+        specs: [
+          ["Freeform", "insertAnything_nonOptimal"],
+          ["BBox", "insertAnything_bbox"],
+          ["Dim-Aware", "insertAnything_optimal"],
+        ],
+      },
+      {
+        model: "ObjectStitch",
+        specs: [
+          ["Freeform", "objectStitch_nonOptimal"],
+          ["BBox", "objectStitch_bbox"],
+          ["Dim-Aware", "objectStitch_optimal"],
+        ],
+      },
+    ];
+
+    const occlusionOutputGroups = [
+      {
+        model: "InsertAnything",
+        specs: [
+          ["Freeform Before", "insertAnything_freeform_before"],
+          ["Freeform After", "insertAnything_freeform_after"],
+          ["BBox Before", "insertAnything_bbox_before"],
+          ["BBox After", "insertAnything_bbox_after"],
+          ["Dim-Aware Before", "insertAnything_optimal_before"],
+          ["Dim-Aware After", "insertAnything_optimal_after"],
+        ],
+      },
+      {
+        model: "ObjectStitch",
+        specs: [
+          ["Freeform Before", "objectStitch_nonOptimal_before"],
+          ["Freeform After", "objectStitch_nonOptimal_after"],
+          ["BBox Before", "objectStitch_bbox_before"],
+          ["BBox After", "objectStitch_bbox_after"],
+          ["Dim-Aware Before", "objectStitch_optimal_before"],
+          ["Dim-Aware After", "objectStitch_optimal_after"],
+        ],
+      },
+    ];
+
+    const DISPLAY_ENTRIES = (() => {
+      const firstEntryId = 9;
+      const ordered = ENTRIES.slice();
+      ordered.sort((a, b) => {
+        if (a.id === firstEntryId) return -1;
+        if (b.id === firstEntryId) return 1;
+        return a.id - b.id;
+      });
+      return ordered;
+    })();
+
+    const imageAudit = {
+      loaded: 0,
+      missing: 0,
+    };
+
+    function htmlEscape(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;");
+    }
+
+    function updateIntegrityStatus() {
+      const node = document.getElementById("integrityStatus");
+      if (!node) {
+        return;
+      }
+      const missingText = imageAudit.missing > 0 ? " (check missing placeholders)" : "";
+      node.textContent = `Images loaded: ${imageAudit.loaded}, missing: ${imageAudit.missing}${missingText}`;
+    }
+
+    function openLightbox(src, caption) {
+      const lightbox = document.getElementById("lightbox");
+      const img = document.getElementById("lightboxImg");
+      const cap = document.getElementById("lightboxCaption");
+      img.src = src;
+      cap.textContent = caption || "";
+      lightbox.classList.add("open");
+      lightbox.setAttribute("aria-hidden", "false");
+    }
+
+    function closeLightbox() {
+      const lightbox = document.getElementById("lightbox");
+      const img = document.getElementById("lightboxImg");
+      lightbox.classList.remove("open");
+      lightbox.setAttribute("aria-hidden", "true");
+      img.src = "";
+    }
+
+    function outputCandidates(base, stem) {
+      return [
+        base + stem + ".jpg",
+        base + stem + ".png",
+        base + stem + ".jpeg",
+        base + stem + ".JPG",
+        base + stem + ".PNG",
+      ];
+    }
+
+    function inputCandidates(folder, filename) {
+      const dot = filename.lastIndexOf(".");
+      if (dot < 0) {
+        return [folder + filename];
+      }
+      const stem = filename.slice(0, dot);
+      const ext = filename.slice(dot + 1);
+      const candidates = [folder + filename];
+      if (ext.toLowerCase() === "jpg") {
+        candidates.push(folder + stem + ".png");
+      } else if (ext.toLowerCase() === "png") {
+        candidates.push(folder + stem + ".jpg");
+      }
+      candidates.push(folder + stem + ".jpeg");
+      return candidates;
+    }
+
+    function appendImageOrPlaceholder(media, candidates, placeholderHtml, descriptor) {
+      const img = document.createElement("img");
+      img.loading = "lazy";
+      img.alt = "";
+      let candidateIdx = 0;
+
+      function setPlaceholder() {
+        imageAudit.missing += 1;
+        updateIntegrityStatus();
+        const placeholder = document.createElement("div");
+        placeholder.className = "placeholder";
+        placeholder.innerHTML = placeholderHtml;
+        if (img.parentNode === media) {
+          media.replaceChildren(placeholder);
+        } else {
+          media.appendChild(placeholder);
+        }
+      }
+
+      function tryNextCandidate() {
+        if (candidateIdx >= candidates.length) {
+          setPlaceholder();
+          return;
+        }
+        img.src = candidates[candidateIdx];
+        candidateIdx += 1;
+      }
+
+      img.onerror = () => {
+        tryNextCandidate();
+      };
+
+      img.onload = () => {
+        imageAudit.loaded += 1;
+        updateIntegrityStatus();
+        media.classList.add("zoomable");
+        media.addEventListener("click", () => openLightbox(img.currentSrc || img.src, descriptor), { once: true });
+      };
+
+      media.appendChild(img);
+      tryNextCandidate();
+    }
+
+    function buildCaption(meta) {
+      if (!meta) {
+        return "";
+      }
+      const parts = [];
+      if (meta.filename) {
+        parts.push("<strong>" + htmlEscape(meta.filename) + "</strong>");
+      }
+      if (meta.status === "generated") {
+        parts.push("Generated asset");
+      } else if (meta.url) {
+        parts.push('<a href="' + htmlEscape(meta.url) + '" target="_blank" rel="noreferrer">Source URL</a>');
+      }
+      return parts.join("<br>");
+    }
+
+    function createAssetCard(title, candidates, placeholderHtml, captionHtml, descriptor) {
+      const figure = document.createElement("figure");
+      figure.className = "asset";
+
+      const titleEl = document.createElement("div");
+      titleEl.className = "title";
+      titleEl.textContent = title;
+      figure.appendChild(titleEl);
+
+      const media = document.createElement("div");
+      media.className = "media";
+      appendImageOrPlaceholder(media, candidates, placeholderHtml, descriptor);
+      figure.appendChild(media);
+
+      const caption = document.createElement("figcaption");
+      caption.innerHTML = captionHtml || "";
+      figure.appendChild(caption);
+
+      return figure;
+    }
+
+    function inputAsset(entry, kind) {
+      const meta = kind === "background" ? entry.background : entry.product;
+      const folder = kind === "background" ? "../../images/backgrounds/" : "../../images/products/";
+      const placeholder = meta.status === "generated"
+        ? "Generated input asset.<br>No local file or source URL is bundled."
+        : "Optional local input image.<br>Download it into <code>" + folder.replace("../../", "") + "</code> to preview here.";
+      return createAssetCard(
+        kind === "background" ? "Background" : "Product",
+        inputCandidates(folder, meta.filename),
+        placeholder,
+        buildCaption(meta),
+        `Entry ${entry.id} - ${kind}`
+      );
+    }
+
+    function maskAsset(entry, title, stem) {
+      const base = VIEWER_KIND === "stitch"
+        ? "../../masks/stitch/" + entry.id + "/"
+        : "../../masks/occlusion/" + entry.id + "/";
+      return createAssetCard(
+        title,
+        outputCandidates(base, stem),
+        "Mask file missing.",
+        "",
+        `Entry ${entry.id} - ${title}`
+      );
+    }
+
+    function outputAsset(entry, title, stem) {
+      const base = "./" + entry.id + "/";
+      return createAssetCard(
+        title,
+        outputCandidates(base, stem),
+        "Result file missing.",
+        "",
+        `Entry ${entry.id} - ${title}`
+      );
+    }
+
+    function createCompactImage(candidates, descriptor) {
+      const wrap = document.createElement("div");
+      const media = document.createElement("div");
+      media.className = "media";
+      appendImageOrPlaceholder(media, candidates, "Missing", descriptor);
+      wrap.appendChild(media);
+      return wrap;
+    }
+
+    function renderOutputGroups(entry) {
+      const groups = occlusionOutputGroups;
+      const wrap = document.createElement("div");
+      wrap.className = "result-groups";
+
+      const bgBase = "../../images/backgrounds/";
+      const prodBase = "../../images/products/";
+      const maskBase = "../../masks/occlusion/" + entry.id + "/";
+
+      groups.forEach((group) => {
+        const block = document.createElement("div");
+        block.className = "model-group";
+        const heading = document.createElement("h4");
+        heading.textContent = group.model;
+        block.appendChild(heading);
+
+        // Column headers
+        const headerGrid = document.createElement("div");
+        headerGrid.className = "row-grid cols-6";
+        ["Background", "Product", "Occluders", "Freeform", "BBox", ""].forEach((label, i) => {
+          const lbl = document.createElement("div");
+          lbl.className = "col-label" + (i === 5 ? " ours" : "");
+          lbl.textContent = i === 5 ? "Ours" : label;
+          headerGrid.appendChild(lbl);
+        });
+        block.appendChild(headerGrid);
+
+        // Before row
+        const beforeLabel = document.createElement("div");
+        beforeLabel.className = "row-label";
+        beforeLabel.textContent = "Before Restoration";
+        block.appendChild(beforeLabel);
+
+        const beforeGrid = document.createElement("div");
+        beforeGrid.className = "row-grid cols-6";
+        beforeGrid.appendChild(createCompactImage(inputCandidates(bgBase, entry.background.filename), `${entry.id} bg`));
+        beforeGrid.appendChild(createCompactImage(inputCandidates(prodBase, entry.product.filename), `${entry.id} product`));
+        beforeGrid.appendChild(createCompactImage(outputCandidates(maskBase, "overlaps_composite"), `${entry.id} occluders`));
+        // Before outputs: freeform, bbox, optimal
+        const beforeStems = group.specs.filter(([l]) => l.includes("Before"));
+        beforeStems.forEach(([label, stem]) => {
+          beforeGrid.appendChild(createCompactImage(outputCandidates("./" + entry.id + "/", stem), `${entry.id} ${group.model} ${label}`));
+        });
+        block.appendChild(beforeGrid);
+
+        // After row
+        const afterLabel = document.createElement("div");
+        afterLabel.className = "row-label";
+        afterLabel.textContent = "After Restoration";
+        block.appendChild(afterLabel);
+
+        const afterGrid = document.createElement("div");
+        afterGrid.className = "row-grid cols-6";
+        afterGrid.appendChild(createCompactImage(inputCandidates(bgBase, entry.background.filename), `${entry.id} bg`));
+        afterGrid.appendChild(createCompactImage(inputCandidates(prodBase, entry.product.filename), `${entry.id} product`));
+        afterGrid.appendChild(createCompactImage(outputCandidates(maskBase, "overlaps_composite"), `${entry.id} occluders`));
+        // After outputs: freeform, bbox, optimal
+        const afterStems = group.specs.filter(([l]) => l.includes("After"));
+        afterStems.forEach(([label, stem]) => {
+          afterGrid.appendChild(createCompactImage(outputCandidates("./" + entry.id + "/", stem), `${entry.id} ${group.model} ${label}`));
+        });
+        block.appendChild(afterGrid);
+
+        wrap.appendChild(block);
+      });
+      return wrap;
+    }
+
+    function renderEntry(entry, exampleNumber) {
+      const card = document.createElement("article");
+      card.className = "entry-card";
+      card.id = "example-" + exampleNumber;
+      card.dataset.entryId = String(entry.id);
+      card.dataset.search = [
+        String(exampleNumber),
+        String(entry.id),
+        entry.label || "",
+        entry.background.filename,
+        entry.product.filename,
+        entry.background.url || "",
+        entry.product.url || ""
+      ].join(" ").toLowerCase();
+
+      const header = document.createElement("div");
+      header.className = "entry-header";
+      header.innerHTML = `
+        <div class="entry-title">
+          <h2>Example ${exampleNumber}</h2>
+          <span class="meta">${htmlEscape(entry.label || "")}</span>
+        </div>
+        ${entry.generated ? '<span class="badge">Generated asset included</span>' : '<span class="badge">Sourced scene</span>'}
+      `;
+      card.appendChild(header);
+
+      const sectionGrid = document.createElement("div");
+      sectionGrid.className = "section-grid";
+
+      const inputPanel = document.createElement("section");
+      inputPanel.className = "panel";
+      inputPanel.innerHTML = "<h3>Inputs</h3>";
+      const inputGrid = document.createElement("div");
+      inputGrid.className = "asset-grid";
+      inputGrid.appendChild(inputAsset(entry, "background"));
+      inputGrid.appendChild(inputAsset(entry, "product"));
+      inputPanel.appendChild(inputGrid);
+      sectionGrid.appendChild(inputPanel);
+
+      const maskPanel = document.createElement("section");
+      maskPanel.className = "panel";
+      maskPanel.innerHTML = "<h3>Masks and Overlays</h3>";
+      const maskGrid = document.createElement("div");
+      maskGrid.className = "asset-grid";
+      maskGrid.appendChild(maskAsset(entry, "Mask Overlay (BG Dim-Aware=blue, BG BBox=pink)", "mask_overlay"));
+      maskGrid.appendChild(maskAsset(entry, "BG Freeform Mask", "bg_freeform_mask"));
+      maskGrid.appendChild(maskAsset(entry, "BG BBox Mask", "bg_bbox"));
+      maskGrid.appendChild(maskAsset(entry, "BG Dim-Aware Mask", "bg_mask"));
+      maskGrid.appendChild(maskAsset(entry, "Object Mask", "obj_mask"));
+      if (VIEWER_KIND === "occlusion") {
+        maskGrid.appendChild(maskAsset(entry, "Overlapping Entities", "overlaps_composite"));
+      }
+      maskPanel.appendChild(maskGrid);
+      sectionGrid.appendChild(maskPanel);
+
+      const resultPanel = document.createElement("section");
+      resultPanel.className = "panel";
+      resultPanel.innerHTML = "<h3>Model Outputs</h3>";
+      resultPanel.appendChild(renderOutputGroups(entry));
+      sectionGrid.appendChild(resultPanel);
+
+      card.appendChild(sectionGrid);
+      return card;
+    }
+
+    function renderChips(entries) {
+      const chipBar = document.getElementById("chipBar");
+      entries.forEach((entry, idx) => {
+        const exampleNumber = idx + 1;
+        const link = document.createElement("a");
+        link.href = "#example-" + exampleNumber;
+        link.textContent = String(exampleNumber);
+        link.title = "Example " + exampleNumber;
+        chipBar.appendChild(link);
+      });
+    }
+
+    function updateVisibleCount() {
+      const cards = Array.from(document.querySelectorAll(".entry-card"));
+      const visible = cards.filter((card) => !card.hidden).length;
+      document.getElementById("visibleCount").textContent = visible;
+    }
+
+    function applyFilter() {
+      const query = document.getElementById("filterBox").value.trim().toLowerCase();
+      document.querySelectorAll(".entry-card").forEach((card) => {
+        card.hidden = query && !card.dataset.search.includes(query);
+      });
+      updateVisibleCount();
+    }
+
+    function init() {
+      const list = document.getElementById("entryList");
+      DISPLAY_ENTRIES.forEach((entry, idx) => list.appendChild(renderEntry(entry, idx + 1)));
+      renderChips(DISPLAY_ENTRIES);
+      document.getElementById("filterBox").addEventListener("input", applyFilter);
+      const lightbox = document.getElementById("lightbox");
+      lightbox.addEventListener("click", (event) => {
+        if (event.target === lightbox || event.target.id === "lightboxImg") {
+          closeLightbox();
+        }
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          closeLightbox();
+        }
+      });
+      updateIntegrityStatus();
+      updateVisibleCount();
+    }
+
+    init();
+  </script>
+</body>
+</html>
