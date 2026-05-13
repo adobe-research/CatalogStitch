@@ -2,6 +2,10 @@
 
 An evaluation dataset for catalog image compositing with dimension mismatch and occlusion scenarios.
 
+## License
+
+This dataset is released under the [Adobe Research License](LICENSE.md) for noncommercial research purposes only. See [`LICENSE.md`](LICENSE.md) for the full license text and third-party image licensing details.
+
 ## Dataset Overview
 
 | Category | Count | Description |

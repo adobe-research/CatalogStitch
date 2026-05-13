@@ -12,6 +12,12 @@
 
 ---
 
+## License
+
+This dataset is released under the [Adobe Research License](dataset/LICENSE.md) for noncommercial research purposes only. See [`dataset/LICENSE.md`](dataset/LICENSE.md) for the full license text and third-party image licensing details.
+
+---
+
 ## CatalogStitch-Eval Benchmark
 
 A 58-example evaluation benchmark for catalog image compositing:
